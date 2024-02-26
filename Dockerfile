@@ -19,6 +19,6 @@ RUN cmake -G "Ninja" ".."; \
 
 FROM busybox
 
-COPY --from=0 /tmp/telegram/build/telegram-bot-api/telegram-bot-api /telegram-bot-api
+COPY --from=0 /tmp/telegram/build/telegram-bot-api/telegram-bot-api /
 
-CMD [ "/telegram-bot-api" ]
+ENTRYPOINT [ "/telegram-bot-api" ]
