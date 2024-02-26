@@ -3,14 +3,16 @@ FROM gcc:13 as builder
 RUN set -ex; \
   apt-get update; \
   apt-get install -y --no-install-recommends \
-    cmake \
-    gperf;
+  libssl-dev \
+  zlib1g-dev \
+  cmake \
+  ninja-build \
+  gperf;
 
-WORKDIR /tmp
+COPY . /tmp/telegram
 
-RUN git clone --recursive https://github.com/tdlib/telegram-bot-api.git; \
-  cd telegram-bot-api; \
-  mkdir build; cd build; \
-  cmake -DCMAKE_BUILD_TYPE=Release ".."; \
-  cmake --build . --target install
+WORKDIR /tmp/telegram/build
+
+RUN cmake -G "Ninja" ".."; \
+  cmake --build . --config Release --target telegram-bot-api
 
