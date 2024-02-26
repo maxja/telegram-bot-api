@@ -17,7 +17,7 @@ WORKDIR /tmp/telegram/build
 RUN cmake -G "Ninja" ".."; \
   cmake --build . --config Release --target telegram-bot-api
 
-FROM busybox
+FROM scratch
 
 COPY --from=0 /tmp/telegram/build/telegram-bot-api/telegram-bot-api /
 
